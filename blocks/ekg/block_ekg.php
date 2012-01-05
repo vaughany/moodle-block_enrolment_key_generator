@@ -4,15 +4,20 @@ class block_ekg extends block_base {
 
     function init() {
         $this->title = get_string('title', 'block_ekg');
-        $this->version = 2009090100;
+        $this->version = 2012010500;
     }
 
     function applicable_formats() {
         return array('all' => true);
     }
 
-    function has_config() { return true; }
-    function instance_allow_multiple() { return true; }
+    function has_config() {
+        return true;
+    }
+
+    function instance_allow_multiple() { 
+        return true;
+    }
 
     function specialization() {
         global $CFG;
@@ -22,8 +27,11 @@ class block_ekg extends block_base {
          * This adds a default instance configuration to each block.
          * This section now handles rudimentary input errors: 0 and not-integers changed to default values.
          */
-        // This next line adds in the default dash only if the key type field is empty (first use) otherwise the separator cannot be nothing! 
+
+        //This next line adds in the default dash only if the key type field is empty (first use) 
+        // otherwise the separator cannot be nothing! 
         if (empty($this->config->block_ekg_key_type)) { $this->config->block_ekg_separator = '-'; }
+
         // Set some more defaults
         if (empty($this->config->block_ekg_key_type)) { $this->config->block_ekg_key_type = 'four'; }
         if (empty($this->config->block_ekg_blocks_or_words)  || $this->config->block_ekg_blocks_or_words == 0 || !is_numeric($this->config->block_ekg_blocks_or_words) ) { $this->config->block_ekg_blocks_or_words = 3; }
@@ -31,20 +39,15 @@ class block_ekg extends block_base {
         if (empty($this->config->block_ekg_number_of_keys) || $this->config->block_ekg_number_of_keys == 0 || !is_numeric($this->config->block_ekg_number_of_keys) ) { $this->config->block_ekg_number_of_keys = 2; }
         if (empty($this->config->block_ekg_text_transform)) { $this->config->block_ekg_text_transform = 'none'; }
         if (empty($this->config->block_ekg_hybrid_structure)) { $this->config->block_ekg_hybrid_structure = 'three-number-five'; }
-        // hmm, screw-ups under 1.9.5+...
         if (empty($this->config->block_ekg_prefix)) { $this->config->block_ekg_prefix = ''; }
         if (empty($this->config->block_ekg_suffix)) { $this->config->block_ekg_suffix = ''; }
-        
-        // I think this is the best way of initialising a 'default' global config variable:
+
         if(!isset($CFG->block_ekg_footer) || empty($CFG->block_ekg_footer)) {
-            // Not worried about the config_save() function, just save it direct.
             set_config('block_ekg_footer', 'words');
         }
-
-    } // END function specialization()
+    }
 
     function config_save($data) {
-        // Default behavior: save all variables as $CFG properties
         foreach ($data as $name => $value) {
             set_config($name, $value);
         }
@@ -52,20 +55,19 @@ class block_ekg extends block_base {
     }
 
     /**
-     * All content is generated below.
+     * All content is generated in get_content().
      */
     function get_content() {
 
         // "if the user is logged in" includes guest login too. :)
         // this 'if' wraps the whole of this function!
         if (isloggedin()) {
-            
             global $CFG;
 
             if ($this->content !== NULL) {
                 return $this->content;
             }
-            
+
             /* BEGIN Custom functions to **DO STUFF**! */
 
             if(!function_exists('makenumber')) {
@@ -967,17 +969,14 @@ class block_ekg extends block_base {
             '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
             $charlistlen = count($charlist);
 
-
             /**
              * File Operations
              */
 
-            // With thanks to the moodle.org blocks forum people. :)
-
             // The next line points to the default location and file - change if you absolutely have to.
             $customfile = $CFG->dirroot . '/blocks/ekg/custom.txt';
 
-            // Check if it is a file and not a folder or a banana.
+            // Check if it's a file and not a folder or a banana or a warp core breach.
             if (!is_file($customfile)) {
                 $customwordlist = 'Warning: '.$customfile .' is NOT a file.';
                 $customwordlistlen = 1;
@@ -992,7 +991,6 @@ class block_ekg extends block_base {
                     $customwordlistlen = count($customwordlist);
                 } // end of file exists
             } // end of is file
-
 
             /**
              * String assembly
@@ -1141,7 +1139,7 @@ class block_ekg extends block_base {
             /**
              * Sorting out the footer
              */
-             
+
             $words_in_list = '';
             switch ($this->config->block_ekg_key_type) {
                 case 'three':
@@ -1157,7 +1155,7 @@ class block_ekg extends block_base {
                     $words_in_list  = $customwordlistlen;
                 break;
             }
-            
+
             switch ($CFG->block_ekg_footer) {
                 case 'words':
                     if ($words_in_list != 0 && $words_in_list != '') {
@@ -1201,7 +1199,7 @@ class block_ekg extends block_base {
                     $footer_result = get_string('footer-error', 'block_ekg');
                 break;
             }
-          
+
             /**
              * This section sorts out the output to screen.
              */
@@ -1216,5 +1214,5 @@ class block_ekg extends block_base {
 
     } // end of get_content() function
 
-} // end of block_ekg class
+}
 ?>
