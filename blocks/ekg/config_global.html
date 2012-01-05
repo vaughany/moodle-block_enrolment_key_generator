@@ -1,0 +1,26 @@
+<table width="10%" border="1" align="center" cellpadding="1" cellspacing="0">
+    <tr> 
+        <td nowrap="nowrap">
+            <?php print_string('footer_options', 'block_ekg'); ?>
+        </td>
+        <td nowrap="nowrap">
+            <input type="radio" name="block_ekg_footer" value="words" <?php if($CFG->block_ekg_footer=='words') { echo 'checked="checked"'; } ?>>
+            <?php print_string('footer_words', 'block_ekg'); ?><br /> 
+            <input type="radio" name="block_ekg_footer" value="refresh" <?php if($CFG->block_ekg_footer=='refresh') { echo 'checked="checked"'; } ?>>
+            <?php print_string('footer_refresh', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_footer" value="both" <?php if($CFG->block_ekg_footer=='both') { echo 'checked="checked"'; } ?>>
+            <?php print_string('footer_both', 'block_ekg'); ?><br /> 
+            <input type="radio" name="block_ekg_footer" value="none" <?php if($CFG->block_ekg_footer=='none') { echo 'checked="checked"'; } ?>>
+            <?php print_string('footer_none', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr align="center"> 
+        <td nowrap="nowrap">
+            <input name="reset" type="reset" id="reset" value="<?php print_string('revert'); ?>" />
+        </td>
+        <td nowrap="nowrap">
+            <input name="submit" type="submit" id="submit" value="<?php print_string('savechanges'); ?>" style="font-weight: bold;"/>
+        </td>
+    </tr>
+</table>
+<?php use_html_editor(); ?>

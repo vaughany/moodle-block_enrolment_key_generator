@@ -1,0 +1,122 @@
+<table width="10%" border="1" align="center" cellpadding="1" cellspacing="0">
+    <tr> 
+        <td nowrap="nowrap">
+            <?php print_string('type_of_key', 'block_ekg'); ?>:
+        </td>
+        <td nowrap="nowrap">
+            <input type="radio" name="block_ekg_key_type" value="three" <?php if($this->config->block_ekg_key_type=='three') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('three', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_key_type" value="four" <?php if($this->config->block_ekg_key_type=='four') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('four', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_key_type" value="five" <?php if($this->config->block_ekg_key_type=='five') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('five', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_key_type" value="rand" <?php if($this->config->block_ekg_key_type=='rand') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('rand', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_key_type" value="rand_numeric" <?php if($this->config->block_ekg_key_type=='rand_numeric') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('rand_numeric', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_key_type" value="md5" <?php if($this->config->block_ekg_key_type=='md5') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('md5', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_key_type" value="custom" <?php if($this->config->block_ekg_key_type=='custom') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('custom', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_key_type" value="hybrid" <?php if($this->config->block_ekg_key_type=='hybrid') { echo 'checked="checked"'; } ?>> 
+            <?php print_string('hybrid', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td nowrap="nowrap">
+            <?php print_string('number_of_blocks', 'block_ekg'); ?>:
+        </td>
+        <td>
+            <input name="block_ekg_blocks_or_words" type="text" id="block_ekg_blocks_or_words" value="<?php echo $this->config->block_ekg_blocks_or_words; ?>" size="3" maxlength="1"> 
+            <?php print_string('blocks_or_words_value', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td nowrap="nowrap">
+            <?php print_string('characters_per_block', 'block_ekg'); ?>:
+        </td>
+        <td>
+            <input name="block_ekg_chars_per_block" type="text" id="block_ekg_chars_per_block" value="<?php echo $this->config->block_ekg_chars_per_block; ?>" size="3" maxlength="1"> 
+            <?php print_string('chars_per_block_value', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td nowrap="nowrap">
+            <?php print_string('hybrid_options', 'block_ekg'); ?>:
+        </td>
+        <td nowrap="nowrap">
+            <select name="block_ekg_hybrid_structure" id="block_ekg_hybrid_structure">
+                <option value="three-four-five" <?php if($this->config->block_ekg_hybrid_structure=='three-four-five') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_three-four-five', 'block_ekg'); ?></option>
+                <option value="five-four-three" <?php if($this->config->block_ekg_hybrid_structure=='five-four-three') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_five-four-three', 'block_ekg'); ?></option>
+                <option value="three-number-five" <?php if($this->config->block_ekg_hybrid_structure=='three-number-five') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_three-number-five', 'block_ekg'); ?></option>
+                <option value="five-number-three" <?php if($this->config->block_ekg_hybrid_structure=='five-number-three') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_five-number-three', 'block_ekg'); ?></option>
+                <option value="three-numbernumber-five" <?php if($this->config->block_ekg_hybrid_structure=='three-numbernumber-five') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_three-numbernumber-five', 'block_ekg'); ?></option>
+                <option value="five-numbernumber-three" <?php if($this->config->block_ekg_hybrid_structure=='five-numbernumber-three') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_five-numbernumber-three', 'block_ekg'); ?></option>
+                <option value="custom-number-custom" <?php if($this->config->block_ekg_hybrid_structure=='custom-number-custom') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_custom-number-custom', 'block_ekg'); ?></option>
+                <option value="custom-numbernumber-custom" <?php if($this->config->block_ekg_hybrid_structure=='custom-numbernumber-custom') { echo 'selected="selected"'; } ?>><?php print_string('hybrid_custom-numbernumber-custom', 'block_ekg'); ?></option>
+            </select>
+        </td>
+    </tr>
+    <tr> 
+        <td nowrap="nowrap">
+            <?php print_string('separator', 'block_ekg'); ?>:
+        </td>
+        <td nowrap="nowrap">
+            <input name="block_ekg_separator" type="text" id="block_ekg_separator" value="<?php echo $this->config->block_ekg_separator; ?>" size="3" maxlength="1"> 
+            <?php print_string('separator_list', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td>
+            <?php print_string('number_of_keys', 'block_ekg'); ?>:
+        </td>
+        <td>
+            <input name="block_ekg_number_of_keys" type="text" id="block_ekg_number_of_keys" value="<?php echo $this->config->block_ekg_number_of_keys; ?>" size="3" maxlength="1"> 
+            <?php print_string('number_of_keys_note', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td>
+            <?php print_string('text_transform', 'block_ekg'); ?>
+        </td>
+        <td>
+            <input type="radio" name="block_ekg_text_transform" value="none" <?php if($this->config->block_ekg_text_transform=="none") { echo 'checked="checked"'; } ?>> 
+            <?php print_string('none', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_text_transform" value="upper" <?php if($this->config->block_ekg_text_transform=="upper") { echo 'checked="checked"'; } ?>> 
+            <?php print_string('upper', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_text_transform" value="lower" <?php if($this->config->block_ekg_text_transform=="lower") { echo 'checked="checked"'; } ?>> 
+            <?php print_string('lower', 'block_ekg'); ?><br />
+            <input type="radio" name="block_ekg_text_transform" value="proper" <?php if($this->config->block_ekg_text_transform=="proper") { echo 'checked="checked"'; } ?>> 
+            <?php print_string('proper', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td rowspan="2">
+            <?php print_string('prefix_suffix', 'block_ekg'); ?>
+        </td>
+        <td>
+            <input name="block_ekg_prefix" type="text" id="block_ekg_prefix" value="<?php echo $this->config->block_ekg_prefix; ?>" size="6" maxlength="5"> 
+            <?php print_string('prefix', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td>
+            <input name="block_ekg_suffix" type="text" id="block_ekg_suffix" value="<?php echo $this->config->block_ekg_suffix; ?>" size="6" maxlength="5" /> 
+            <?php print_string('suffix', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr> 
+        <td colspan="2">
+            <?php print_string('general', 'block_ekg'); ?>
+        </td>
+    </tr>
+    <tr align="center"> 
+        <td nowrap="nowrap">
+            <input name="reset" type="reset" id="reset" value="<?php print_string('revert'); ?>" />
+        </td>
+        <td nowrap="nowrap">
+            <input name="submit" type="submit" id="submit" value="<?php print_string('savechanges'); ?>" style="font-weight: bold;"/>
+        </td>
+    </tr>
+</table>
+<?php use_html_editor(); ?>
