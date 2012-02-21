@@ -65,13 +65,10 @@ Click `Site Administration -> Plugins -> Blocks -> Enrolment Key Generator` to g
 
 The only option you can change is what appears on the footer of the block. Yes, I know it's not very exciting but that's not the point. Your choices are:
 
-__Use 'Chosen from n words (when applicable)':__ This will display the above text, replacing 'n' with the number of words it was possible to choose from. If words are not in use (you're creating keys from randomly chosen letters, for example), this will display nothing.
-
-__Use a 'Refresh this page' link.__ Displays a link which, when clicked, causes the page to reload. This is not an AJAX refresh: the __whole page__ will reload, so make sure you've saved all your work and have finished working on that page. AJAX refresh is on the to-do list.
-
-__Use both of the above.__ Uses both of the above options.
-
-__No footer.__ Shows no footer at all, making the block a little shorter.
+* `Use 'Chosen from n words (when applicable)'`: This will display the above text, replacing 'n' with the number of words it was possible to choose from. If words are not in use (you're creating keys from randomly chosen letters, for example), this will display nothing.
+* `Use a 'Refresh this page' link`: Displays a link which, when clicked, causes the page to reload. This is not an AJAX refresh: the __whole page__ will reload, so make sure you've saved all your work. AJAX refresh is on the to-do list.
+* `Use both of the above`: Uses both of the above options.
+* `No footer`: Shows no footer at all, making the block a little shorter.
 
 Click save changes when you are done.
 
@@ -139,7 +136,7 @@ Some options use strict formatting of letters and numbers to ensure a consistent
     Letter-letter-number-number: JO40-XP88-DC79
     Letter-letter-letter-number-number-number: FKG397-NEB349-KTO440
 
-The internal gubbins to force this format is in place and simple enough to edit, so if you needed a format such as `llnll` it's easy to create (file an issue!).
+The internal gubbins to force this format is in place and simple enough to edit, so if you needed a format such as `llnll` it's easy to create ([raise an issue!](https://github.com/vaughany/moodle-courseawards/issues)).
 
 We can use parts of a randomly generated [_SHA-1 hash_](http://en.wikipedia.org/wiki/SHA-1) (maximum of 40 characters), change the separator again and force lowercase too:
 
@@ -163,7 +160,7 @@ Same applies to the suffix:
 
 The block is supplied with a few custom word lists, plain text files containing words, one per line, preferably with Unix-format line endings (LF). You are encouraged to make your own if desired (it's easy, see below).
 
-> **Note:** I read somewhere [citation needed] that PHP has a particularly bad time with Apple Mac line endings (CR), so if you are going to create your own word lists or edit the supplied ones, best to save the file with Unix-format line endings (LF). [_Notepad 2_](http://www.flos-freeware.ch/notepad2.html) and [_Notepad++_](http://notepad-plus-plus.org/) for Windows are both good at this.
+> **Note:** I read somewhere [[citation needed](http://imgs.xkcd.com/comics/wikipedian_protester.png)] that PHP has a particularly bad time with Apple Mac line endings (CR), so if you are going to create your own word lists or edit the supplied ones, best to save the file with Unix-format line endings (LF). [_Notepad 2_](http://www.flos-freeware.ch/notepad2.html) and [_Notepad++_](http://notepad-plus-plus.org/) for Windows are both good at this.
 
 Word lists are found in the block's folder, in a sub-folder called `wordlists`. `elements.txt` contains chemical elements in Title Case, and will create keys such as:
 
