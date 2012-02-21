@@ -1,15 +1,46 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Enrolment Key Generator block en_uk language file
+ *
+ * @package    block
+ * @subpackage ekg
+ * @copyright  2011 onwards Paul Vaughan, paulvaughan@southdevon.ac.uk
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 $string['pluginname'] = 'Enrolment Key Generator';
 $string['pluginshortname'] = 'EKG';
 $string['type_of_key'] = 'Type of key to be generated:';
-$string['three'] = 'Three letter words';
-$string['four'] = 'Four letter words';
-$string['five'] = 'Five letter words';
-$string['rand'] = 'Alphanumeric characters';
-$string['rand_numeric'] = 'Random numbers';
-$string['md5'] = 'Random MD5 hash';
-$string['custom'] = 'Custom word list (Add \'custom.txt\' to block folder)';
-$string['hybrid'] = 'Hybrid of multiple key types';
+$string['three'] = 'Three letter words (e.g. NOT-PEA-CAN)';
+$string['four'] = 'Four letter words (e.g. LAYS-LOWE-WOOL)';
+$string['five'] = 'Five letter words (e.g. SYNCH-PINGO-BUMPS)';
+$string['rand_alpha'] = 'Alphabet characters only (e.g. SRB-PVM-RSU)';
+$string['rand'] = 'Alphanumeric characters (e.g. RW9-P4Z-73M)';
+$string['rand_numeric'] = 'Numbers only (e.g. 221-947-374)';
+$string['ln'] = 'Letter-Number (e.g. A1-B2-C3)';
+$string['lnln'] = 'Letter-Number-Letter-Number (e.g. A1B2-C3D4-E5F6)';
+$string['lnlnln'] = 'Letter-Number-Letter-Number-Letter-Number (e.g. A1B2C3-D4E5F6)';
+$string['llnn'] = 'Letter-Letter-Number-Number (e.g. AB12-CD34-EF56)';
+$string['lllnnn'] = 'Letter-Letter-Letter-Number-Number-Number (e.g. ABC123-DEF456)';
+$string['sha1'] = 'Random SHA-1 hash (e.g. DB3D6103BA081B5)';
+$string['custom'] = 'Custom word list (place <em>\'.txt\'</em> files in \'wordlists/\' folder)';
+$string['custom_file'] = 'Choose a custom word list:';
+$string['hybrid'] = 'Hybrid of multiple key types (see below)';
 $string['number_of_blocks'] = 'Number of blocks of characters, or words:';
 $string['characters_per_block'] = 'Number of characters per block (not used if you are using words):';
 $string['blocks_or_words_value'] = 'Suggested value: 2 to 5';
@@ -66,4 +97,3 @@ $string['footer_refresh'] = 'Use a \'Refresh this page\' link';
 $string['footer_both'] = 'Use both of the above';
 $string['footer_none'] = 'No footer';
 $string['footer-error'] = 'Error building the footer, sorry.';
-?>

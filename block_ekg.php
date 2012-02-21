@@ -23,13 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * TODO:
- *      Instead of hard-coding a text file to read in, list any file ending in .txt in the block dir?
- *      Blacklist of inappropriate words.
- *      ln, lnln, lnlnln and lnlnlnln (etc) types
- */
-
 class block_ekg extends block_base {
 
     public function init() {
@@ -37,7 +30,6 @@ class block_ekg extends block_base {
     }
 
     public function applicable_formats() {
-        //return array('all' => true);
         return array('course-view' => true);
     }
 
@@ -50,17 +42,52 @@ class block_ekg extends block_base {
     }
 
     public function specialization() {
-        //global $CFG;
         $this->title = isset($this->config->title) ?
             format_string($this->config->title) :
             format_string(get_string('pluginshortname', 'block_ekg'));
 
         // checking for minimum configuration requirements
-        if (!isset($this->config->number_of_keys) || empty($this->config->number_of_keys) || !isset($this->config->key_type) || empty($this->config->key_type)) {
+        if (!isset($this->config->number_of_keys) || !isset($this->config->key_type) ) {
             $this->content = new stdClass;
             $this->content->text = '<div class="keys">Configuration needed.</div>';
             return $this->content;
         }
+    }
+
+    /**
+     * transform text
+     */
+    private function transform_text($text, $method) {
+        switch ($method) {
+            case 'upper':
+                return mb_convert_case($text, MB_CASE_UPPER, "UTF-8");
+            break;
+            case 'lower':
+                return mb_convert_case($text, MB_CASE_LOWER, "UTF-8");
+            break;
+            case 'proper':
+                return mb_convert_case($text, MB_CASE_TITLE, "UTF-8");
+            break;
+            default:
+                return $text;
+            break;
+        }
+    }
+
+    /**
+     * randomly select an item from a list
+     */
+    private function getitem($list, $len) {
+        // Using trim() to remove whitespace. Necessary for items from a text file, and useful for others?
+        return trim($list[rand(1, $len)-1]);
+    }
+
+    /**
+     * get a pseudo-random SHA-1 hash
+     * changed from MD5 not because of security, but length
+     */
+    private function getsha1() {
+        return sha1(microtime());
     }
 
     /**
@@ -69,61 +96,11 @@ class block_ekg extends block_base {
     public function get_content() {
         global $CFG;
 
-        /**
-         * make a random number between given bounds
-         */
-        if (!function_exists('makenumber')) {
-            function makenumber ($upper, $lower) {
-                return rand($upper, $lower);
-            }
-        }
-
-        /**
-         * transform text
-         */
-        if (!function_exists('transform_text')) {
-            function transform_text($text, $method) {
-                switch ($method) {
-                    case 'upper':
-                        return mb_convert_case($text, MB_CASE_UPPER, "UTF-8");
-                    break;
-                    case 'lower':
-                        return mb_convert_case($text, MB_CASE_LOWER, "UTF-8");
-                    break;
-                    case 'proper':
-                        return mb_convert_case($text, MB_CASE_TITLE, "UTF-8");
-                    break;
-                    default:
-                        return $text;
-                    break;
-                }
-            }
-        }
-
-        /**
-         * randomly select an item from a list
-         */
-        if (!function_exists('getitem')) {
-            function getitem($list, $len) {
-                // Using trim() to remove whitespace. Necessary for items from a text file, and useful for others?
-                return trim($list[rand(1, $len)-1]);
-            }
-        }
-
-        /**
-         * get a pseudo-random MD5 hash
-         */
-        if (!function_exists('getmd5')) {
-            function getmd5() {
-                return md5(microtime());
-            }
-        }
-
-
         // "if the user is logged in" includes guest login too. :)
         // this 'if' wraps the whole of this function!
         if (isloggedin()) {
 
+            // need to figure out what this does...
             if ($this->content !== null) {
                 return $this->content;
             }
@@ -1291,7 +1268,8 @@ class block_ekg extends block_base {
              */
 
             // The next line points to the default location and file - change if you absolutely have to.
-            $customfile = $CFG->dirroot . '/blocks/ekg/custom.txt';
+            //$customfile = $CFG->dirroot . '/blocks/ekg/custom.txt';
+            $customfile = $CFG->dirroot . '/blocks/ekg/wordlists/'.$this->config->customfile.'.txt';
 
             // Check if it's a file and not a folder or a banana or a warp core breach.
             if (!is_file($customfile)) {
@@ -1300,7 +1278,7 @@ class block_ekg extends block_base {
             } else {
                 // Check if it exists.
                 if (!file_exists($customfile)) {
-                    $customwordlist = 'Warning: '.$customfile . ' does NOT exit.';
+                    $customwordlist = 'Warning: '.$customfile . ' does NOT exist.';
                     $customwordlistlen = 1;
                 } else {
                     // Basic checks complete, load in the file. Could probably do with more checks, file size, line length etc.
@@ -1318,7 +1296,7 @@ class block_ekg extends block_base {
             // FOR loop for number of keys.
             for ($j=1; $j <= $this->config->number_of_keys; $j++) {
 
-                // Add the prefix, even if empty. Probably quicker to add an empty string than to check if it's empty and add it if not.
+                // add the prefix
                 $result .= $this->config->prefix;
 
                 // Initialise Count for the hybrid key type
@@ -1330,17 +1308,23 @@ class block_ekg extends block_base {
                     // Get a word or block of characters as required.
                     switch ($this->config->key_type) {
                         case 'three':
-                            $interim = getitem($threeletterwordlist, $threeletterwordlistlen);
+                            $interim = $this->getitem($threeletterwordlist, $threeletterwordlistlen);
                         break;
                         case 'four':
-                            $interim = getitem($fourletterwordlist, $fourletterwordlistlen);
+                            $interim = $this->getitem($fourletterwordlist, $fourletterwordlistlen);
                         break;
                         case 'five':
-                            $interim = getitem($fiveletterwordlist, $fiveletterwordlistlen);
+                            $interim = $this->getitem($fiveletterwordlist, $fiveletterwordlistlen);
                         break;
                         case 'rand':
                             for ($k=1; $k <= $this->config->chars_per_block; $k++) {
-                                $interim .= getitem($charlist, $charlistlen);
+                                $interim .= $this->getitem($charlist, $charlistlen);
+                            }
+                        break;
+                        case 'rand_alpha':
+                            // same as 'rand' but 10 less to remove the numerals
+                            for ($k=1; $k <= $this->config->chars_per_block; $k++) {
+                                $interim .= $this->getitem($charlist, $charlistlen-10);
                             }
                         break;
                         case 'rand_numeric':
@@ -1348,89 +1332,109 @@ class block_ekg extends block_base {
                                 $interim .= rand(0, 9);
                             }
                         break;
-                        case 'md5':
+                        case 'sha1':
                             $interim .= substr(
-                                getmd5(),
-                                ($i-1) * $this->config->blocks_or_words,
+                                $this->getsha1(),
+                                ($i-1) * $this->config->number_of_blocks,
                                 $this->config->chars_per_block
                             );
                         break;
+                        case 'ln':
+                            $interim .= $this->getitem($charlist, $charlistlen-10).rand(0, 9);
+                        break;
+                        case 'lnln':
+                            $interim .= $this->getitem($charlist, $charlistlen-10).rand(0, 9).
+                                        $this->getitem($charlist, $charlistlen-10).rand(0, 9);
+                        break;
+                        case 'lnlnln':
+                            $interim .= $this->getitem($charlist, $charlistlen-10).rand(0, 9).
+                                        $this->getitem($charlist, $charlistlen-10).rand(0, 9).
+                                        $this->getitem($charlist, $charlistlen-10).rand(0, 9);
+                        break;
+                        case 'llnn':
+                            $interim .= $this->getitem($charlist, $charlistlen-10).$this->getitem($charlist, $charlistlen-10).
+                            rand(0, 9).rand(0, 9);
+                        break;
+                        case 'lllnnn':
+                            $interim .= $this->getitem($charlist, $charlistlen-10).$this->getitem($charlist, $charlistlen-10).
+                            $this->getitem($charlist, $charlistlen-10).rand(0, 9).rand(0, 9).rand(0, 9);
+                        break;
                         case 'custom':
-                            $interim = getitem($customwordlist, $customwordlistlen);
+                            $interim = $this->getitem($customwordlist, $customwordlistlen);
                         break;
                         case 'hybrid':
                             $count++;
                             switch ($this->config->hybrid_structure) {
                                 case 'three-four-five':
                                     if ($count==1) {
-                                        $interim = getitem($threeletterwordlist, $threeletterwordlistlen);
+                                        $interim = $this->getitem($threeletterwordlist, $threeletterwordlistlen);
                                     } else if ($count==2) {
-                                        $interim = getitem($fourletterwordlist, $fourletterwordlistlen);
+                                        $interim = $this->getitem($fourletterwordlist, $fourletterwordlistlen);
                                     } else if ($count==3) {
-                                        $interim = getitem($fiveletterwordlist, $fiveletterwordlistlen);
+                                        $interim = $this->getitem($fiveletterwordlist, $fiveletterwordlistlen);
                                     }
                                 break;
                                 case 'five-four-three':
                                     if ($count==1) {
-                                        $interim = getitem($fiveletterwordlist, $fiveletterwordlistlen);
+                                        $interim = $this->getitem($fiveletterwordlist, $fiveletterwordlistlen);
                                     } else if ($count==2) {
-                                        $interim = getitem($fourletterwordlist, $fourletterwordlistlen);
+                                        $interim = $this->getitem($fourletterwordlist, $fourletterwordlistlen);
                                     } else if ($count==3) {
-                                        $interim = getitem($threeletterwordlist, $threeletterwordlistlen);
+                                        $interim = $this->getitem($threeletterwordlist, $threeletterwordlistlen);
                                     }
                                 break;
                                 case 'three-number-five':
                                     if ($count==1) {
-                                        $interim = getitem($threeletterwordlist, $threeletterwordlistlen);
+                                        $interim = $this->getitem($threeletterwordlist, $threeletterwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9);
                                     } else if ($count==3) {
-                                        $interim = getitem($fiveletterwordlist, $fiveletterwordlistlen);
+                                        $interim = $this->getitem($fiveletterwordlist, $fiveletterwordlistlen);
                                     }
                                 break;
                                 case 'five-number-three':
                                     if ($count==1) {
-                                        $interim = getitem($fiveletterwordlist, $fiveletterwordlistlen);
+                                        $interim = $this->getitem($fiveletterwordlist, $fiveletterwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9);
                                     } else if ($count==3) {
-                                        $interim = getitem($threeletterwordlist, $threeletterwordlistlen);
+                                        $interim = $this->getitem($threeletterwordlist, $threeletterwordlistlen);
                                     }
                                 break;
                                 case 'three-numbernumber-five':
                                     if ($count==1) {
-                                        $interim = getitem($threeletterwordlist, $threeletterwordlistlen);
+                                        $interim = $this->getitem($threeletterwordlist, $threeletterwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9).rand(0, 9);
                                     } else if ($count==3) {
-                                        $interim = getitem($fiveletterwordlist, $fiveletterwordlistlen);
+                                        $interim = $this->getitem($fiveletterwordlist, $fiveletterwordlistlen);
                                     }
                                 break;
                                 case 'five-numbernumber-three':
                                     if ($count==1) {
-                                        $interim = getitem($fiveletterwordlist, $fiveletterwordlistlen);
+                                        $interim = $this->getitem($fiveletterwordlist, $fiveletterwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9).rand(0, 9);
                                     } else if ($count==3) {
-                                        $interim = getitem($threeletterwordlist, $threeletterwordlistlen);
+                                        $interim = $this->getitem($threeletterwordlist, $threeletterwordlistlen);
                                     }
                                 break;
                                 case 'custom-number-custom':
                                     if ($count==1) {
-                                        $interim = getitem($customwordlist, $customwordlistlen);
+                                        $interim = $this->getitem($customwordlist, $customwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9);
                                     } else if ($count==3) {
-                                        $interim = getitem($customwordlist, $customwordlistlen);
+                                        $interim = $this->getitem($customwordlist, $customwordlistlen);
                                     }
                                 break;
                                 case 'custom-numbernumber-custom':
                                     if ($count==1) {
-                                        $interim = getitem($customwordlist, $customwordlistlen);
+                                        $interim = $this->getitem($customwordlist, $customwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9).rand(0, 9);
                                     } else if ($count==3) {
-                                        $interim = getitem($customwordlist, $customwordlistlen);
+                                        $interim = $this->getitem($customwordlist, $customwordlistlen);
                                     }
                                 break;
                             }
@@ -1438,7 +1442,7 @@ class block_ekg extends block_base {
                     }
 
                     // $interim gets transformed if required.
-                    $result .= transform_text($interim, $this->config->transform);
+                    $result .= $this->transform_text($interim, $this->config->transform);
                     $interim = "";
 
                     // If we're not done yet, add the separator, even if empty.

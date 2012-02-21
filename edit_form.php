@@ -26,6 +26,7 @@
 class block_ekg_edit_form extends block_edit_form {
 
     protected function specific_definition($mform) {
+        global $CFG;
 
         // PHP's range() function cannot specify starting key, so a range of 1-20 is actually [0] => 1...
         // Doing it this way instead. There may be a better way, but this actually *works* so is good enough.
@@ -38,13 +39,21 @@ class block_ekg_edit_form extends block_edit_form {
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
         // type of key to be created
-        $radioarray=array();
+        $radioarray = array();
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('three', 'block_ekg'), 'three');
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('four', 'block_ekg'), 'four');
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('five', 'block_ekg'), 'five');
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('rand', 'block_ekg'), 'rand');
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('rand_alpha', 'block_ekg'), 'rand_alpha');
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('rand_numeric', 'block_ekg'), 'rand_numeric');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('md5', 'block_ekg'), 'md5');
+
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('ln', 'block_ekg'), 'ln');
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('lnln', 'block_ekg'), 'lnln');
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('lnlnln', 'block_ekg'), 'lnlnln');
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('llnn', 'block_ekg'), 'llnn');
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('lllnnn', 'block_ekg'), 'lllnnn');
+
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('sha1', 'block_ekg'), 'sha1');
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('custom', 'block_ekg'), 'custom');
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('hybrid', 'block_ekg'), 'hybrid');
         $mform->addGroup($radioarray, 'config_key_type', get_string('type_of_key', 'block_ekg'), array('<br />'), false);
@@ -66,14 +75,22 @@ class block_ekg_edit_form extends block_edit_form {
 
         // hybrid key structure
         $radioarray=array();
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_three-four-five', 'block_ekg'), 'three-four-five', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_five-four-three', 'block_ekg'), 'five-four-three', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_three-number-five', 'block_ekg'), 'three-number-five', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_five-number-three', 'block_ekg'), 'five-number-three', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_three-numbernumber-five', 'block_ekg'), 'three-numbernumber-five', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_five-numbernumber-three', 'block_ekg'), 'five-numbernumber-three', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_custom-number-custom', 'block_ekg'), 'custom-number-custom', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '', get_string('hybrid_custom-numbernumber-custom', 'block_ekg'), 'custom-numbernumber-custom', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_three-four-five', 'block_ekg'), 'three-four-five', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_five-four-three', 'block_ekg'), 'five-four-three', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_three-number-five', 'block_ekg'), 'three-number-five', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_five-number-three', 'block_ekg'), 'five-number-three', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_three-numbernumber-five', 'block_ekg'), 'three-numbernumber-five', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_five-numbernumber-three', 'block_ekg'), 'five-numbernumber-three', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_custom-number-custom', 'block_ekg'), 'custom-number-custom', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_custom-numbernumber-custom', 'block_ekg'), 'custom-numbernumber-custom', null);
         $mform->addGroup($radioarray, 'config_hybrid_structure', get_string('hybrid_options', 'block_ekg'), array('<br />'), false);
         $mform->setDefault('config_hybrid_structure', 'three-number-five');
         $mform->setType('config_hybrid_structure', PARAM_ALPHANUMEXT);
@@ -95,7 +112,7 @@ class block_ekg_edit_form extends block_edit_form {
         );
         $mform->addElement('select', 'config_separator', get_string('separator', 'block_ekg'), $separators);
         $mform->setDefault('config_separator', '-');
-        //$mform->setType('config_hybrid_structure', PARAM_PRETTYMUCHANYTHING);
+        $mform->setType('config_hybrid_structure', PARAM_RAW_TRIMMED);
 
         // number of keys
         $mform->addElement('select', 'config_number_of_keys', get_string('number_of_keys', 'block_ekg'), $range);
@@ -119,13 +136,32 @@ class block_ekg_edit_form extends block_edit_form {
         $attributes = array('size'=>12, 'maxlength'=>10);
 
         // prefix
-        $mform->addElement('text', 'config_prefix', get_string('prefix_desc', 'block_ekg'),$attributes);
+        $mform->addElement('text', 'config_prefix', get_string('prefix_desc', 'block_ekg'), $attributes);
         $mform->setDefault('config_prefix', '');
-        $mform->setType('config_prefix', PARAM_ALPHAEXT);
+        $mform->setType('config_prefix', PARAM_RAW_TRIMMED);
 
         // suffix
         $mform->addElement('text', 'config_suffix', get_string('suffix_desc', 'block_ekg'), $attributes);
         $mform->setDefault('config_suffix', '');
-        $mform->setType('config_suffix', PARAM_ALPHAEXT);
+        $mform->setType('config_suffix', PARAM_RAW_TRIMMED);
+
+        // trial picking which file to use
+        $files_avail = array();
+        $dir = $CFG->dirroot.'/blocks/ekg/wordlists';
+        if ($dh = opendir($dir)) {
+            while (($file = readdir($dh)) !== false) {
+                if (strpos($file, '.txt', false)) {
+                    $files_avail[] = substr($file, 0, strlen($file)-4);
+                }
+            }
+            closedir($dh);
+            asort($files_avail);
+        }
+        foreach ($files_avail as $cfile) {
+            $filearray[$cfile] = ucfirst($cfile);
+        }
+        $mform->addElement('select', 'config_customfile', get_string('custom_file', 'block_ekg'), $filearray);
+        $mform->setDefault('config_customfile', 'elements');
+        $mform->setType('config_customfile', PARAM_RAW_TRIMMED);
     }
 }

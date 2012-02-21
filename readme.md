@@ -1,75 +1,232 @@
-Enrolment Key Generator for Moodle 1.9.x - Copyright (c) 2009-2012 Paul Vaughan <paulieboo [at] gmail [dot] com>
+# Enrolment Key Generator for Moodle 2.x
 
-This is a block which generates one or more random enrolment keys from various sources. Keys are generated when the page loads or is reloaded. I will not be implimenting an AJAX refresh for this block.
+A block which generates one or more random strings of user-definable keys from various sources.
 
-This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+## Introduction
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: http://www.gnu.org/copyleft/gpl.html
+Back along I needed a way of quickly generating short, random strings of data to be used as enrolment passwords. There was nothing available for Moodle and I didn't want to have to use an external website or desktop app. This block was the result.
 
-More information is available at the project's github page: https://github.com/vaughany/moodle_enrolment_key_generator
+It is probably a good idea to fully read through this readme before embarking on any installation or bug reporting.
 
-Note: If you're downloading this from github you'll want to put it all in a directory called blocks/ekg
+## Licence
 
-Version 1.1.1, updated 2012-01-05.
+Enrolment Key Generator block for Moodle 2.x, copyright (C) 2009-2012  Paul Vaughan
 
-Installation
-~~~~~~~~~~~~
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-1. Move the *contents* of the 'ekg' folder (the one containing 'blocks' and 'lang' folders) to your Moodle's root folder. This will put the blocks/ekg/ and lang/en_utf8/ folders in the correct places.
-2. As site administrator, go to your Moodle's front page and click on Notifications. This will install the block.
-3. Go to a course, turn on editing and add the Enrolment Key Generator Block. If you see [[blocktitle]], ensure there is a file called block_ekg.php in lang/en_utf8/
-4. It will start generating keys immediately.
-5. Edit the configuration to better suit your needs: with editing on, click the 'edit' icon. Each with different settings.
-6. Add your own custom.txt file to the ekg folder if you wish, replacing or renaming the one(s) already there.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-Note: At this time, the block is visible to ALL logged in users (including those logged in as 'guest'.
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Bugs
-~~~~
+## Purpose
 
-No known bugs at this point, however the code might not be up to much! ;)
+Initially, the purpose of this block was 'find a reason to create a Moodle block, and in doing so, learn how to write code for Moodle'. This was for Moodle 1.9, about 4 or so years back.  I've since upgraded it to Moodle 2.x as I was contacted and asked to do so.
 
-Acknowledgements
-~~~~~~~~~~~~~~~~
+Keys are re/generated when the page loads. Each instance of the block is unique (you can have many per page with different configurations) and generated keys are not stored anywhere. Currently all users can see the block, but this can be changed within Moodle if desired.
 
-3 and 4 letter Wordlists courtesy of Australian Scrabble® Players Association (ASPA) (www.scrabble.org.au)
-5-letter wordlist courtesy of More Words (www.morewords.com)
-List of chemical elements (used in default custom.txt) taken from Wikipedia (http://en.wikipedia.org/wiki/List_of_elements_by_name)
-Other lists taken from websites all over the Internet. Sorry for forgetting.
+More information is available at the [project's github page](https://github.com/vaughany/moodle-block_enrolment_key_generator).
 
-Version History
-~~~~~~~~~~~~~~~
+> **Warning:** In this block I have used word lists freely available on the internet which contain **every** three, four and five-letter British English word, and as such, may contain words that you may find offensive. I strongly suggest that you load the file `ekg/block_ekg.php` into your favourite text editor and search for and remove any words you, or your users, may find offensive.
 
-2012/01/05: Dusting off this old code and tidying it up a little, in preparation to go on github and be refactored for 2.2.
-2009/09/01: Have sorted out the footer issue (the issue being what to have there) with a global config option.
-2009/08/16: Have fixed all errors I can find at this point, minor edits to language pack and some code logic.
-            Note to all: Use the 'developer level warnings' setting in Admin>Server>Debugging!! Very useful!
-2009/08/02: Discovered some new bugs possibly relating to newer versions of Moodle. Tinkering and fixing.
-            Added if(function_exists()) { to custom-functions as they were being declared multiple times (error).
-2008/08/01: Got a new 5-letter word list, added that in. WILL NOT BE CHECKED FOR PROFANITY. That's up to you.
-            Added new 'hybrid' key code. It's a bit clunky but it seems to work well.
-2008/07/31: Refactored the code to use functions and generally be more efficient, pending further development.
-            Added a pure random number option for each block.
-2008/07/28: As default a dash is used as a separator but after that the separator field can be empty (no separator).
-            Zeros and non-numbers in config screen input fields now replaced with default values.
-2008/07/25: Ability to add prefix and suffix options to keys
-            Implemented the ability to use a custom 'wordlist' file.
-            Add ability to UPPERCASE, lowercase or Title Case words/blocks (or leave them alone).
-2008/07/19: Removed obvious profanity/racial slurs from wordlists. Please let me know if you find any more.
+## Installation
 
-Possible To-Do's
-~~~~~~~~~~~~~~~~
+Installation is a matter of copying files to the correct locations within your Moodle installation, but it is always wise to test new plugins in a sandbox environment first, and have the ability to roll back changes.
 
-Note: all to-do's will be pushed into 2.2. I'll bug-fix this for 1.9 as required but no more development will take place.
+Download the archive and extract the files, or [clone the repository from GitHub](https://github.com/vaughany/moodle-block_enrolment_key_generator/). You should see the following files and structure:
 
-Text input to specify name (possibly location but will assume ekg block folder) of custom text files.
-Option to trim whitespace from any part of a string (except the delimiter which could be a space).
-Implement a drop-down menu for separators.
-Random number for blocks AND for seperators.
-Add in a key number, like an ordered list (for number of keys >1?) May require some custom CSS.
-Add ability to make sure same word is not used more than once per key or set of keys? Not truly random though (Enigma much?).
+    ekg/
+    |-- block_ekg.php
+    |-- custom-a.txt
+    |-- custom-b.txt
+    |-- custom-c.txt
+    |-- custom-d.txt
+    |-- custom.txt
+    |-- edit_form.php
+    |-- lang
+    |   `-- en
+    |       `-- block_ekg.php
+    |-- readme.md
+    |-- settings.php
+    |-- styles.css
+    `-- version.php
 
-Comments and Ideas
-~~~~~~~~~~~~~~~~~~
+Copy the 'ekg' folder into your Moodle installation's blocks folder.
 
-Go to the block homepage (above) and leave a comment there. Or, fork the repo, develop it and submit a pull request. I try to be active in the Moodle forums but comments can easily slip by unnoticed, as well as on the block's page in the  Plugins database.
+Log in to your Moodle as Admin and click on Notifications on the Admin menu.
+
+The block should successfully install. If you receive any error messages, please [raise an issue on GitHub](https://github.com/vaughany/moodle-block_enrolment_key_generator/issues).
+
+## Global Configuration
+
+TODO:
+
+## Instance Configuration
+
+### General key types
+
+The block has a number of options for generating keys, and I'd encourage you to simply experiment and see what happens.
+
+To configure the block, first add it to a course. (You can add multiple blocks, but just add and configure one for now.)
+
+> **Note:** At this time, the block is visible to ALL logged in users (including those logged in as 'guest').
+
+When added, it will need an initial configuration, so click on the 'edit' icon (hand-and-pen) and then immediately click 'save changes'. This is enough to get the block working.
+
+You should see something like this:
+
+    ILL-CAG-REC
+    ARE-LEW-SUN
+    FAG-FOR-FIB
+    CEL-REC-ENE
+    WUS-GAT-TUT
+
+The block has generated five keys of three 'blocks' (in this case the blocks are words, and the words are three-letter words, but they could be other things) and used a hyphen/dash/minus as a separator, and appears to have forced the words into uppercase.
+
+> **Note:** Clicking the _Refresh enrolment keys?_ link will reload the whole page. I've yet to implement any kind of AJAX refreshing for this block.
+
+Changing the _type of key_ configuration to `four letter words` yields:
+
+    BADE-MOOP-PIPS
+
+...and changing the _number of blocks of characters or words_ setting to `two` yields:
+
+    SUNS-YULE
+
+There's also some five-letter words (in three blocks):
+
+    PIPED-BIPOD-WELLS
+
+This would probably do as a source of random data, but I wanted to take it a little further. Changing the _type_ to `alphanumeric characters` yields:
+
+    spLT-vfSW-pJXv
+
+We can tell from this that the case of letters is not set to _uppercase_ (as I assumed earlier) but is _no change_, so it will use both capitals and lower-case letters. Changing the _case_ setting to `UPPERCASE` yields:
+
+    B6EE-76YK-YVQC
+
+We can get something approximating a Windows licence key by changing _number of blocks of characters or words_ setting AND the _number of characters per block_ setting to `five`:
+
+    1PH7Q-XWJHC-8LH61-PSWG2-TTFNW
+
+We can use numbers as our random source and change the _separator_ to something else:
+
+    2284_9370_7338
+
+...or use just letters:
+
+    KFUR_KWIF_OFMT
+
+We can use strict formatting of letters and numbers to ensure consistency:
+
+    `letter-number`: L5-A4-N8
+    `letter-number-letter-number`: L0R2-K0R5-O5J7
+    `letter-number-letter-number-letter-number`: H4A1U9-J4U8Q0-J7N7M0
+    `letter-letter-number-number`: JO40-XP88-DC79
+    `letter-letter-letter-number-number-number`: FKG397-NEB349-KTO440
+
+The internal gubbins to force this format is in place and simple enough to edit, so if you needed a format such as `llnll` it's easy to create (file an issue!).
+
+We can use parts of a randomly generated [_SHA-1 hash_](http://en.wikipedia.org/wiki/SHA-1) (maximum of 40 characters), change the separator again and force lowercase too:
+
+    19a96/873dc/95e86
+
+There is the option to prefix and/or suffix the generated key with a string of the user's choosing, eg. if I needed keys which started 'mon' for Monday, into the suffix box I would type `mon` and any character I like to seperate it from the body of the key, giving me `mon/`:
+
+    mon/Reh-Obe
+
+Same applies to the suffix:
+
+    Fax-Coo/mon
+
+...or even:
+
+    mon/Kab-Vac/mon
+
+> **Note:** The seperator you choose (from the drop-down menu) and any case transformation does not modify the prefix or suffix: what you type in is exactly what will be prepended or appended to the generated key.
+
+### Keytypes using custom word lists
+
+The block is supplied with a few custom word lists, plain text files containing words, one per line, preferably with Unix-format line endings (LF). You are encouraged to make your own if desired (it's easy, see below).
+
+> **Note:** I read somewhere [citation needed] that PHP has a particularly bad time with Apple Mac line endings (CR), so if you are going to create your own word lists or edit the supplied ones, best to save the file with Unix-format line endings (LF). [_Notepad 2_](http://www.flos-freeware.ch/notepad2.html) and [_Notepad++_](http://notepad-plus-plus.org/) for Windows are both good at this.
+
+Word lists are found in the block's folder, in a sub-folder called `wordlists`. `elements.txt` contains chemical elements in Title Case, and will create keys such as:
+
+    Krypton-Bismuth
+
+Real words like these may benefit from changing the separator to _none_, giving the impression of CamelCase:
+
+    IridiumProtactinium
+    GreenBlueGreen
+    GapCryAft
+
+* `colours.txt` contains basic colour names in lowercase.
+* `cities.txt` contains names of world cities.
+* `countries.txt` contains names of world countries.
+* `forenames.txt` contains a small selection of male and female names. (I'd recommend against using this to choose your newborn's name...)
+
+Some of the above example files are arranged alphabetically, others are not. As a line is picked at random, it doesn't really matter how the file is structured, as long as there is just one item per line with appropriate line endings.
+
+You can create word lists from absolutely anything you like: if it can be added one-item-per-line to a plain text file, this plugin can use it.
+
+### Hybrid key types
+
+Hybrid keys are keys made from a mix of other keys, the exact format of which is chosen further down the configuration screen:
+
+* `Three Four Five` - a three-letter word, then a four-letter word, then a five-letter word.
+* `Five Four Three` - the reverse of the above.
+* `Three Number Five` - a three-letter word, then a single digit, then a five-letter word.
+* `Five Number Three` - the reverse of the above.
+* `Three NumberNumber Five` - a three-letter word, then two digits, then a five-letter word.
+* `Five NumberNumber Three` - the reverse of the above.
+* `Custom Number Custom` - a word chosen from your selected word list, then a single digit, then a word chosen from your selected word list.
+* `Custom NumberNumber Custom` - a word chosen from your selected word list, then two digits, then a word chosen from your selected word list.
+
+## Creating a custom word list
+
+This part of the block is not particularly sophisticated, reading a whole file straight into an array and blindly using it, so for now, creating a word list should meet these criteria:
+
+* One word per line
+* Plain text only, no markup, HTML or PHP code!!
+* Avoid unnecessary punctuation
+* No empty lines
+* Unix-format line endings (LF)
+* No leading or trailing spaces
+* Use standard ASCII characters, no unicode
+* File names:
+ * all lower case
+ * no spaces
+ * MUST end in .txt
+
+## Known Issues
+
+The block is visible to ALL logged in users (including those logged in as 'guest'). It's not a problem as such, as keys generated are very, very unlikely to be generated ever again, however I thought I'd add it in here in case you missed it above.
+
+Should you find a bug, have an issue, feature request or new language pack, please [log an issue in the tracker](https://github.com/vaughany/moodle-courseawards/issues) or fork the repo, fix the problem and submit a pull request.
+
+Custom file reading is very basic, lacking checks such as empty lines, white space.
+
+## To Do
+
+In no particular order:
+
+* AJAX refresh, insted of reloading the whole page.
+* I'd like to code in a couple of new formats for randomly generated letters and numbers, e.g. ln, lnln, lnlnln, lnlnlnln etc.
+* As of writing, the plugin looks for a file called `custom.txt` in the block folder. To use a new text file, the original must be renamed (`custom_backup.txt`?) and the new file renamed to `custom.txt`. I want to improve this for the future.
+* Option to trim white space from any part of a string (except the delimiter which could be a space), especially for custom text files.
+* Add option to ensure same word/sequence of characters is not used more than once per key or set of keys.
+* Blacklist of inappropriate words.
+
+## Acknowledgements
+
+* 3 and 4 letter Word lists courtesy of [Australian Scrabble&reg; Players Association (ASPA)](http://www.scrabble.org.au)
+* 5-letter word list courtesy of [More Words](http://www.morewords.com)
+* List of chemical elements (used in default custom.txt) taken from [Wikipedia](http://en.wikipedia.org/wiki/List_of_elements_by_name)
+* Other lists taken from websites all over the Internet. Sorry for forgetting.
+
+## History
+
+**February 20th, 2012**
+
+* Version 2.0 for Moodle 2.x
+* Build 2012020800
