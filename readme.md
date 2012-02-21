@@ -65,17 +65,13 @@ Click `Site Administration -> Plugins -> Blocks -> Enrolment Key Generator` to g
 
 The only option you can change is what appears on the footer of the block. Yes, I know it's not very exciting but that's not the point. Your choices are:
 
-1. Use 'Chosen from n words (when applicable)'
-   This will display the above text, replacing 'n' with the number of words it was possible to choose from. If words are not in use (you're creating keys from randomly chosen letters, for example), this will display nothing.
+__Use 'Chosen from n words (when applicable)':__ This will display the above text, replacing 'n' with the number of words it was possible to choose from. If words are not in use (you're creating keys from randomly chosen letters, for example), this will display nothing.
 
-2. Use a 'Refresh this page' link
-   Displays a link which, when clicked, causes the page to reload. This is not an AJAX refresh: the __whole page__ will reload, so make sure you've saved all your work and have finished working on that page. AJAX refresh is on the to-do list.
+__Use a 'Refresh this page' link.__ Displays a link which, when clicked, causes the page to reload. This is not an AJAX refresh: the __whole page__ will reload, so make sure you've saved all your work and have finished working on that page. AJAX refresh is on the to-do list.
 
-3. Use both of the above
-   Uses both of the above options.
+__Use both of the above.__ Uses both of the above options.
 
-4. No footer
-   Shows no footer at all, making the block a little shorter.
+__No footer.__ Shows no footer at all, making the block a little shorter.
 
 Click save changes when you are done.
 
