@@ -24,7 +24,7 @@ Initially, the purpose of this block was 'find a reason to create a Moodle block
 
 Keys are re/generated when the page loads. Each instance of the block is unique (you can have many per page with different configurations) and generated keys are not stored anywhere. Currently all users can see the block, but this can be changed within Moodle if desired.
 
-More information is available at the [project's github page](https://github.com/vaughany/moodle-block_enrolment_key_generator).
+More information is available at the [project's GitHub page](https://github.com/vaughany/moodle-block_enrolment_key_generator).
 
 > **Warning:** In this block I have used word lists freely available on the internet which contain **every** three, four and five-letter British English word, and as such, may contain words that you may find offensive. I strongly suggest that you load the file `ekg/block_ekg.php` into your favourite text editor and search for and remove any words you, or your users, may find offensive.
 
@@ -36,11 +36,6 @@ Download the archive and extract the files, or [clone the repository from GitHub
 
     ekg/
     |-- block_ekg.php
-    |-- custom-a.txt
-    |-- custom-b.txt
-    |-- custom-c.txt
-    |-- custom-d.txt
-    |-- custom.txt
     |-- edit_form.php
     |-- lang
     |   `-- en
@@ -48,7 +43,13 @@ Download the archive and extract the files, or [clone the repository from GitHub
     |-- readme.md
     |-- settings.php
     |-- styles.css
-    `-- version.php
+    |-- version.php
+    `-- wordlists
+        |-- cities.txt
+        |-- colours.txt
+        |-- countries.txt
+        |-- elements.txt
+        `-- forenames.txt
 
 Copy the 'ekg' folder into your Moodle installation's blocks folder.
 
@@ -58,7 +59,29 @@ The block should successfully install. If you receive any error messages, please
 
 ## Global Configuration
 
-TODO:
+Global config affects each block throughout the whole Moodle installation. There is only one option and it's only there for aesthetic value.
+
+Click `Site Administration -> Plugins -> Blocks -> Enrolment Key Generator` to get to the global config page.
+
+The only option you can change is what appears on the footer of the block. Yes, I know it's not very exciting but that's not the point. Your choices are:
+
+1. Use 'Chosen from n words (when applicable)'
+
+   This will display the above text, replacing 'n' with the number of words it was possible to choose from. If words are not in use (you're creating keys from randomly chosen letters, for example), this will display nothing.
+
+2. Use a 'Refresh this page' link
+
+   Displays a link which, when clicked, causes the page to reload. This is not an AJAX refresh: the __whole page__ will reload, so make sure you've saved all your work and have finished working on that page. AJAX refresh is on the to-do list.
+
+3. Use both of the above
+
+   Uses both of the above options.
+
+4. No footer
+
+   Shows no footer at all, making the block a little shorter.
+
+Click save changes when you are done.
 
 ## Instance Configuration
 
@@ -116,13 +139,13 @@ We can use numbers as our random source and change the _separator_ to something 
 
     KFUR_KWIF_OFMT
 
-We can use strict formatting of letters and numbers to ensure consistency:
+Some options use strict formatting of letters and numbers to ensure a consistent key:
 
-    `letter-number`: L5-A4-N8
-    `letter-number-letter-number`: L0R2-K0R5-O5J7
-    `letter-number-letter-number-letter-number`: H4A1U9-J4U8Q0-J7N7M0
-    `letter-letter-number-number`: JO40-XP88-DC79
-    `letter-letter-letter-number-number-number`: FKG397-NEB349-KTO440
+    Letter-number: L5-A4-N8
+    Letter-number-letter-number: L0R2-K0R5-O5J7
+    Letter-number-letter-number-letter-number: H4A1U9-J4U8Q0-J7N7M0
+    Letter-letter-number-number: JO40-XP88-DC79
+    Letter-letter-letter-number-number-number: FKG397-NEB349-KTO440
 
 The internal gubbins to force this format is in place and simple enough to edit, so if you needed a format such as `llnll` it's easy to create (file an issue!).
 
@@ -226,7 +249,7 @@ In no particular order:
 
 ## History
 
-**February 20th, 2012**
+**February 22nd, 2012**
 
 * Version 2.0 for Moodle 2.x
-* Build 2012020800
+* Build 2012022200

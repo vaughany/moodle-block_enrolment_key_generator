@@ -1268,7 +1268,6 @@ class block_ekg extends block_base {
              */
 
             // The next line points to the default location and file - change if you absolutely have to.
-            //$customfile = $CFG->dirroot . '/blocks/ekg/custom.txt';
             $customfile = $CFG->dirroot . '/blocks/ekg/wordlists/'.$this->config->customfile.'.txt';
 
             // Check if it's a file and not a folder or a banana or a warp core breach.
