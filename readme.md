@@ -37,7 +37,6 @@ Download the archive and extract the files, or [clone the repository from GitHub
     ekg/
     |-- block_ekg.php
     |-- edit_form.php
-    |-- file
     |-- lang
     |   `-- en
     |       `-- block_ekg.php
