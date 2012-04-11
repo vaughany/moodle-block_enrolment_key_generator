@@ -94,7 +94,6 @@ Khartoum
 Kiev (Kyiv)
 Kigali
 Kingston
-Kingston
 Kingstown
 Kinshasa
 Kuala Lumpur
@@ -140,7 +139,6 @@ N'Djamena
 New Delhi
 Ngerulmud
 Niamey
-Nicosia
 Nicosia
 Nouakchott
 Nouméa

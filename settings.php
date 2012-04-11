@@ -40,4 +40,15 @@ if ($ADMIN->fulltree) {
         ))
     );
 
+    $settings->add(new admin_setting_configselect(
+        'ekg/footerwordlist',
+        get_string('footer_wordlist_options', 'block_ekg'),
+        get_string('footer_wordlist_options_desc', 'block_ekg'),
+        'show',
+        array (
+            'show'  => get_string('footer_wordlist_show', 'block_ekg'),
+            'hide'  => get_string('footer_wordlist_hide', 'block_ekg'),
+        ))
+    );
+
 }

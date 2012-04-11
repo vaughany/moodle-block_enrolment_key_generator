@@ -20,13 +20,13 @@ You should have received a copy of the GNU General Public License along with thi
 
 ## Purpose
 
-Initially, the purpose of this block was 'find a reason to create a Moodle block, and in doing so, learn how to write code for Moodle'. This was for Moodle 1.9, about 4 or so years back.  I've since upgraded it to Moodle 2.x as I was contacted and asked to do so.
+Initially, the purpose of this block was 'find a reason to create a Moodle block, and in doing so, learn how to write code for Moodle'. This was for Moodle 1.9, about four or so years back.  I've since upgraded it to Moodle 2.x as I was contacted and asked to do so.
 
 Keys are re/generated when the page loads. Each instance of the block is unique (you can have many per page with different configurations) and generated keys are not stored anywhere. Currently all users can see the block, but this can be changed within Moodle if desired.
 
 More information is available at the [project's GitHub page](https://github.com/vaughany/moodle-block_enrolment_key_generator).
 
-> **Warning:** In this block I have used word lists freely available on the internet which contain **every** three, four and five-letter British English word, and as such, may contain words that you may find offensive. I strongly suggest that you load the file `ekg/block_ekg.php` into your favourite text editor and search for and remove any words you, or your users, may find offensive.
+> **Warning:** In this block I have used word lists freely available on the internet which contain **every** three, four and five-letter (British) English word, and as such, may contain words that you may find offensive. I strongly suggest that you load the file `ekg/block_ekg.php` as well as the files in the `ekg/wordlists` folder into your favourite text editor and search for and remove any words you, or your users, may find offensive. (Or, leave the files alone and run the risk of your enrolment key sounding like [George Carlin's Seven Words](http://en.wikipedia.org/wiki/Seven_dirty_words)...!)
 
 ## Installation
 
@@ -37,19 +37,30 @@ Download the archive and extract the files, or [clone the repository from GitHub
     ekg/
     |-- block_ekg.php
     |-- edit_form.php
+    |-- file
     |-- lang
     |   `-- en
     |       `-- block_ekg.php
+    |-- lib.php
     |-- readme.md
+    |-- readme.md.bak
     |-- settings.php
     |-- styles.css
     |-- version.php
     `-- wordlists
+        |-- adjectives_big.txt
+        |-- adjectives_common.txt
+        |-- adverbs.txt
         |-- cities.txt
         |-- colours.txt
         |-- countries.txt
         |-- elements.txt
-        `-- forenames.txt
+        |-- forenames.txt
+        |-- nouns.txt
+        |-- prepositions.txt
+        |-- pronouns.txt
+        |-- unusual.txt
+        `-- verbs.txt
 
 Copy the 'ekg' folder into your Moodle installation's blocks folder.
 
@@ -63,12 +74,19 @@ Global config affects each block throughout the whole Moodle installation. There
 
 Click `Site Administration -> Plugins -> Blocks -> Enrolment Key Generator` to get to the global config page.
 
-The only option you can change is what appears on the footer of the block. Yes, I know it's not very exciting but that's not the point. Your choices are:
+You have two options for what appears on the footer of the block. Yes, I know it's not very exciting but that's not the point.
+
+Menu one contains:
 
 * `Use 'Chosen from n words (when applicable)'`: This will display the above text, replacing 'n' with the number of words it was possible to choose from. If words are not in use (you're creating keys from randomly chosen letters, for example), this will display nothing.
 * `Use a 'Refresh this page' link`: Displays a link which, when clicked, causes the page to reload. This is not an AJAX refresh: the __whole page__ will reload, so make sure you've saved all your work. AJAX refresh is on the to-do list.
-* `Use both of the above`: Uses both of the above options.
+* `Use both 'Chosen from' and 'Refresh' options`: Uses both of the above options.
 * `No footer`: Shows no footer at all, making the block a little shorter.
+
+Menu two relates to the custom word list you may or may not be using, and contains:
+
+* `Show the word list\'s name`: If you use a custom word list, the name will be shown.
+* `Don\'t show the word list\'s name`: The name of the custom word list will not be shown.
 
 Click save changes when you are done.
 
@@ -142,7 +160,7 @@ We can use parts of a randomly generated [_SHA-1 hash_](http://en.wikipedia.org/
 
     19a96/873dc/95e86
 
-There is the option to prefix and/or suffix the generated key with a string of the user's choosing, eg. if I needed keys which started 'mon' for Monday, into the suffix box I would type `mon` and any character I like to seperate it from the body of the key, giving me `mon/`:
+There is the option to prefix and/or suffix the generated key with a string of the user's choosing, e.g. if I needed keys which started 'mon' for Monday, into the suffix box I would type `mon` and any character I like to separate it from the body of the key, giving me `mon/`:
 
     mon/Reh-Obe
 
@@ -154,11 +172,11 @@ Same applies to the suffix:
 
     mon/Kab-Vac/mon
 
-> **Note:** The seperator you choose (from the drop-down menu) and any case transformation does not modify the prefix or suffix: what you type in is exactly what will be prepended or appended to the generated key.
+> **Note:** The separator you choose (from the drop-down menu) and any case transformation does not modify the prefix or suffix: what you type in is exactly what will be prepended or appended to the generated key.
 
 ### Keytypes using custom word lists
 
-The block is supplied with a few custom word lists, plain text files containing words, one per line, preferably with Unix-format line endings (LF). You are encouraged to make your own if desired (it's easy, see below).
+The block is supplied with a few custom word lists: plain text files containing words, one per line, preferably with Unix-format line endings (LF). You are encouraged to make your own if desired (it's easy, see below).
 
 > **Note:** I read somewhere [[citation needed](http://imgs.xkcd.com/comics/wikipedian_protester.png)] that PHP has a particularly bad time with Apple Mac line endings (CR), so if you are going to create your own word lists or edit the supplied ones, best to save the file with Unix-format line endings (LF). [_Notepad 2_](http://www.flos-freeware.ch/notepad2.html) and [_Notepad++_](http://notepad-plus-plus.org/) for Windows are both good at this.
 
@@ -172,10 +190,19 @@ Real words like these may benefit from changing the separator to _none_, giving 
     GreenBlueGreen
     GapCryAft
 
-* `colours.txt` contains basic colour names in lowercase.
-* `cities.txt` contains names of world cities.
-* `countries.txt` contains names of world countries.
-* `forenames.txt` contains a small selection of male and female names. (I'd recommend against using this to choose your newborn's name...)
+* `adjectives_big.txt` contains many adjectives: `aback, abaft, abandoned`.
+* `adjectives_common.txt` contains common adjectives: `abundant, adorable, agreeable`.
+* `adverbs.txt` contains many adverbs: `abnormally, absentmindedly, accidentally`.
+* `cities.txt` contains names of world cities: `Abu Dhabi, Abuja, Accra`.
+* `colours.txt` contains basic colour names: `aqua, black, blue`.
+* `countries.txt` contains names of world countries: `Abkhazia, Afghanistan, Albania`.
+* `elements.txt` contains most chemical elements: `Actinium, Aluminium, Americium`.
+* `forenames.txt` contains a small selection of male and female names: `Aaliyah, Aaron, Abbie`.
+* `nouns.txt` contains many nouns: `account, achiever, acoustics`.
+* `prepositions.txt` contains many prepositions: `aboard, about, above`.
+* `pronouns.txt`contains many pronouns: `all, another, any`.
+* `unusual.txt` contains a selection of unusual words: `abacinate, abderian, abecedarian`. (Link in the Acknowledgements, below, for explanations!)
+* `verbs.txt` contains many prepositions: `abide, accelerate, accept`.
 
 Some of the above example files are arranged alphabetically, others are not. As a line is picked at random, it doesn't really matter how the file is structured, as long as there is just one item per line with appropriate line endings.
 
@@ -196,15 +223,15 @@ Hybrid keys are keys made from a mix of other keys, the exact format of which is
 
 ## Creating a custom word list
 
-This part of the block is not particularly sophisticated, reading a whole file straight into an array and blindly using it, so for now, creating a word list should meet these criteria:
+This part of the block is not particularly sophisticated, reading a whole file straight in and blindly using it, so for now, creating a word list should meet these criteria:
 
 * One word per line
-* Plain text only, no markup, HTML or PHP code!!
+* Plain text only, no markup or code of any kind
 * Avoid unnecessary punctuation
 * No empty lines
 * Unix-format line endings (LF)
 * No leading or trailing spaces
-* Use standard ASCII characters, no unicode
+* Use standard ASCII characters, no Unicode
 * File names:
  * all lower case
  * no spaces
@@ -222,21 +249,37 @@ Custom file reading is very basic, lacking checks such as empty lines, white spa
 
 In no particular order:
 
-* AJAX refresh, insted of reloading the whole page.
-* I'd like to code in a couple of new formats for randomly generated letters and numbers, e.g. ln, lnln, lnlnln, lnlnlnln etc.
-* As of writing, the plugin looks for a file called `custom.txt` in the block folder. To use a new text file, the original must be renamed (`custom_backup.txt`?) and the new file renamed to `custom.txt`. I want to improve this for the future.
-* Option to trim white space from any part of a string (except the delimiter which could be a space), especially for custom text files.
+* AJAX refresh, instead of reloading the whole page.
+* Option to trim white space from any part of a string (except the delimiter which could be a space) and possibly other characters too, especially for custom text files.
 * Add option to ensure same word/sequence of characters is not used more than once per key or set of keys.
 * Blacklist of inappropriate words.
+* For custom text files, have a setting for words of less then, equal to, or greater than a specified length.
 
 ## Acknowledgements
 
-* 3 and 4 letter Word lists courtesy of [Australian Scrabble&reg; Players Association (ASPA)](http://www.scrabble.org.au)
+* 3 and 4 letter word lists courtesy of [Australian Scrabble&reg; Players Association (ASPA)](http://www.scrabble.org.au)
 * 5-letter word list courtesy of [More Words](http://www.morewords.com)
 * List of chemical elements (used in default custom.txt) taken from [Wikipedia](http://en.wikipedia.org/wiki/List_of_elements_by_name)
+* English language word lists taken from [Moms Who Think](http://www.momswhothink.com)
+* Unusual words taken from [here](http://users.tinyonline.co.uk/gswithenbank/unuwords.htm) (See the link for explanations of the words!)
 * Other lists taken from websites all over the Internet. Sorry for forgetting.
 
 ## History
+
+**April 11th, 2012**
+
+* Version 2.0.1 for Moodle 2.x
+* Build 2012041100
+
+A new feature is the ability to pick a custom word list from a drop-down menu. For each new block it defaults to the `elements` word list but any file in the block's `ekg/wordlists` folder ending in `.txt` can be chosen. You can create and add your own, too.
+
+> **Note:** Any file in the /wordlists folder is assumed to be safe and correct, as per the guidelines (see "Creating a custom word list", above). Files not of the correct specification may fail to load or break your Moodle installation or breach your warp core. Yes, I know that's not great, it's on my to-do list.
+
+Wrote code for a couple of new formats for randomly generated letters and numbers, e.g. ln, lnln, lnlnln and llnn, lllnnn, etc, as well as a couple of new hybrid formats too.
+
+This block can now be placed anywhere a block can be placed. Previously it was restricted to courses, but that's not necessary, and it can now be laced anywhere.
+
+Added extra wordlists and edited and corrected the readme.
 
 **February 22nd, 2012**
 

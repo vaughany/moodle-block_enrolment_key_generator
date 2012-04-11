@@ -26,7 +26,10 @@
 class block_ekg_edit_form extends block_edit_form {
 
     protected function specific_definition($mform) {
+
         global $CFG;
+
+        include_once($CFG->dirroot . '/blocks/ekg/lib.php');
 
         // PHP's range() function cannot specify starting key, so a range of 1-20 is actually [0] => 1...
         // Doing it this way instead. There may be a better way, but this actually *works* so is good enough.
@@ -88,9 +91,18 @@ class block_ekg_edit_form extends block_edit_form {
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_five-numbernumber-three', 'block_ekg'), 'five-numbernumber-three', null);
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_custom-number', 'block_ekg'), 'custom-number', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_custom-numbernumber', 'block_ekg'), 'custom-numbernumber', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_custom-numbernumbernumber', 'block_ekg'), 'custom-numbernumbernumber', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-number-custom', 'block_ekg'), 'custom-number-custom', null);
         $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-numbernumber-custom', 'block_ekg'), 'custom-numbernumber-custom', null);
+        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+            get_string('hybrid_custom-numbernumbernumber-custom', 'block_ekg'), 'custom-numbernumbernumber-custom', null);
+
         $mform->addGroup($radioarray, 'config_hybrid_structure', get_string('hybrid_options', 'block_ekg'), array('<br />'), false);
         $mform->setDefault('config_hybrid_structure', 'three-number-five');
         $mform->setType('config_hybrid_structure', PARAM_ALPHANUMEXT);
@@ -158,7 +170,7 @@ class block_ekg_edit_form extends block_edit_form {
             asort($files_avail);
         }
         foreach ($files_avail as $cfile) {
-            $filearray[$cfile] = ucfirst($cfile);
+            $filearray[$cfile] = prettyfilename($cfile);
         }
         $mform->addElement('select', 'config_customfile', get_string('custom_file', 'block_ekg'), $filearray);
         $mform->setDefault('config_customfile', 'elements');
