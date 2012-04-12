@@ -56,6 +56,7 @@ Download the archive and extract the files, or [clone the repository from GitHub
         |-- elements.txt
         |-- forenames.txt
         |-- nouns.txt
+        |-- phobias.txt
         |-- prepositions.txt
         |-- pronouns.txt
         |-- unusual.txt
@@ -199,6 +200,7 @@ Real words like these may benefit from changing the separator to _none_, giving 
 * `forenames.txt` contains a small selection of male and female names: `Aaliyah, Aaron, Abbie`.
 * `nouns.txt` contains many nouns: `account, achiever, acoustics`.
 * `prepositions.txt` contains many prepositions: `aboard, about, above`.
+* `phobias.txt` contains many phobias: `ablutophobia, acarophobia, acerophobia`.
 * `pronouns.txt`contains many pronouns: `all, another, any`.
 * `unusual.txt` contains a selection of unusual words: `abacinate, abderian, abecedarian`. (Link in the Acknowledgements, below, for explanations!)
 * `verbs.txt` contains many prepositions: `abide, accelerate, accept`.
@@ -260,7 +262,8 @@ In no particular order:
 * 5-letter word list courtesy of [More Words](http://www.morewords.com)
 * List of chemical elements (used in default custom.txt) taken from [Wikipedia](http://en.wikipedia.org/wiki/List_of_elements_by_name)
 * English language word lists taken from [Moms Who Think](http://www.momswhothink.com)
-* Unusual words taken from [here](http://users.tinyonline.co.uk/gswithenbank/unuwords.htm) (See the link for explanations of the words!)
+* Unusual words taken from [here](http://users.tinyonline.co.uk/gswithenbank/unuwords.htm) (see the link for explanations of the words!)
+* List of phobias taken from [phobialist.com](http://phobialist.com/) (see link for explanations again)
 * Other lists taken from websites all over the Internet. Sorry for forgetting.
 
 ## History
