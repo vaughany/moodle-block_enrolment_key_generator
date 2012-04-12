@@ -203,7 +203,7 @@ Real words like these may benefit from changing the separator to _none_, giving 
 * `phobias.txt` contains many phobias: `ablutophobia, acarophobia, acerophobia`.
 * `pronouns.txt`contains many pronouns: `all, another, any`.
 * `unusual.txt` contains a selection of unusual words: `abacinate, abderian, abecedarian`. (Link in the Acknowledgements, below, for explanations!)
-* `verbs.txt` contains many prepositions: `abide, accelerate, accept`.
+* `verbs.txt` contains many verbs: `abide, accelerate, accept`.
 
 Some of the above example files are arranged alphabetically, others are not. As a line is picked at random, it doesn't really matter how the file is structured, as long as there is just one item per line with appropriate line endings.
 
