@@ -187,6 +187,7 @@ febriphobia
 felinophobia
 fibriophobia
 fibriphobia
+friggatriskaidekaphobia
 gamophobia
 geliophobia
 gelotophobia
@@ -519,7 +520,6 @@ tremophobia
 trichinophobia
 trichopathophobia
 trichophobia
-triskaidekaphobia
 tropophobia
 trypanophobia
 tuberculophobia

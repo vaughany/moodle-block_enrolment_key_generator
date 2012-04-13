@@ -190,6 +190,8 @@ Real words like these may benefit from changing the separator to _none_, giving 
     GreenBlueGreen
     GapCryAft
 
+Currently available word lists:
+
 * `adjectives_big.txt` contains many adjectives: `aback, abaft, abandoned`.
 * `adjectives_common.txt` contains common adjectives: `abundant, adorable, agreeable`.
 * `adverbs.txt` contains many adverbs: `abnormally, absentmindedly, accidentally`.
