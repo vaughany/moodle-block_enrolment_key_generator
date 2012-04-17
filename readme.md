@@ -42,7 +42,6 @@ Download the archive and extract the files, or [clone the repository from GitHub
     |       `-- block_ekg.php
     |-- lib.php
     |-- readme.md
-    |-- readme.md.bak
     |-- settings.php
     |-- styles.css
     |-- version.php
