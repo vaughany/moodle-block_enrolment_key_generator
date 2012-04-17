@@ -241,7 +241,7 @@ This part of the block is not particularly sophisticated, reading a whole file s
 
 The block is visible to ALL logged in users (including those logged in as 'guest'). It's not a problem as such, as keys generated are very, very unlikely to be generated ever again, however I thought I'd add it in here in case you missed it above.
 
-Should you find a bug, have an issue, feature request or new language pack, please [log an issue in the tracker](https://github.com/vaughany/moodle-courseawards/issues) or fork the repo, fix the problem and submit a pull request.
+Should you find a bug, have an issue, feature request or new language pack, please [log an issue in the tracker](https://github.com/vaughany/moodle-block_enrolment_key_generator/issues) or fork the repo, fix the problem and submit a pull request.
 
 Custom file reading is very basic, lacking checks such as empty lines, white space.
 
