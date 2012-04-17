@@ -10,7 +10,7 @@ It is probably a good idea to fully read through this readme before embarking on
 
 ## Licence
 
-Enrolment Key Generator block for Moodle 2.x, copyright (C) 2009-2012  Paul Vaughan
+Enrolment Key Generator block for Moodle 2.x, copyright &copy; 2009-2012  Paul Vaughan
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
