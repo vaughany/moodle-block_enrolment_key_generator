@@ -37,6 +37,7 @@ Download the archive and extract the files, or [clone the repository from GitHub
     ekg/
     |-- block_ekg.php
     |-- edit_form.php
+    |-- gpl.txt
     |-- lang
     |   `-- en
     |       `-- block_ekg.php
@@ -153,7 +154,7 @@ Some options use strict formatting of letters and numbers to ensure a consistent
     Letter-letter-number-number: JO40-XP88-DC79
     Letter-letter-letter-number-number-number: FKG397-NEB349-KTO440
 
-The internal gubbins to force this format is in place and simple enough to edit, so if you needed a format such as `llnll` it's easy to create ([raise an issue!](https://github.com/vaughany/moodle-courseawards/issues)).
+The internal gubbins to force this format is in place and simple enough to edit, so if you needed a format such as `llnll` it's easy to create ([raise an issue!](https://github.com/vaughany/moodle-block_enrolment_key_generator/issues)).
 
 We can use parts of a randomly generated [_SHA-1 hash_](http://en.wikipedia.org/wiki/SHA-1) (maximum of 40 characters), change the separator again and force lowercase too:
 
@@ -268,6 +269,13 @@ In no particular order:
 * Other lists taken from websites all over the Internet. Sorry for forgetting.
 
 ## History
+
+**July 2nd, 2012**
+
+* Version 2.1.0 for Moodle 2.3
+* Build 2012070200
+
+Use this version for Moodle 2.3. Adheres to the stricter PHP 5.4 standards.
 
 **April 11th, 2012**
 
