@@ -22,7 +22,6 @@
  * @copyright  2011 onwards Paul Vaughan, paulvaughan@southdevon.ac.uk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 class block_ekg_edit_form extends block_edit_form {
 
     protected function specific_definition($mform) {
@@ -41,7 +40,7 @@ class block_ekg_edit_form extends block_edit_form {
         // Section header title according to language file.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        // type of key to be created
+        // Type of key to be created.
         $radioarray = array();
         $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('three', 'block_ekg'), 'three');
         $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('four', 'block_ekg'), 'four');
@@ -64,20 +63,20 @@ class block_ekg_edit_form extends block_edit_form {
         $mform->setDefault('config_key_type', 'three');
         $mform->setType('config_key_type', PARAM_ALPHANUMEXT);
 
-        // a word about word lists
+        // A word about word lists.
         $mform->addElement('static', 'description', null, get_string('general_wordlist', 'block_ekg'));
 
-        // number of blocks of words
+        // Number of blocks of words.
         $mform->addElement('select', 'config_number_of_blocks', get_string('number_of_blocks', 'block_ekg'), $range);
         $mform->setDefault('config_number_of_blocks', 3);
         $mform->setType('config_number_of_blocks', PARAM_INT);
 
-        // number of characters per block
+        // Number of characters per block.
         $mform->addElement('select', 'config_chars_per_block', get_string('characters_per_block', 'block_ekg'), $range);
         $mform->setDefault('config_chars_per_block', 4);
         $mform->setType('config_chars_per_block', PARAM_INT);
 
-        // hybrid key structure
+        // Hybrid key structure.
         $radioarray=array();
         $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_three-four-five', 'block_ekg'), 'three-four-five', null);
@@ -108,7 +107,7 @@ class block_ekg_edit_form extends block_edit_form {
         $mform->setDefault('config_hybrid_structure', 'three-number-five');
         $mform->setType('config_hybrid_structure', PARAM_ALPHANUMEXT);
 
-        // separator
+        // Separator.
         $separators = array(
             '' =>   get_string('separator_nothing', 'block_ekg'),
             '\\' => get_string('separator_bslash', 'block_ekg'),
@@ -127,12 +126,12 @@ class block_ekg_edit_form extends block_edit_form {
         $mform->setDefault('config_separator', '-');
         $mform->setType('config_hybrid_structure', PARAM_RAW_TRIMMED);
 
-        // number of keys
+        // Number of keys.
         $mform->addElement('select', 'config_number_of_keys', get_string('number_of_keys', 'block_ekg'), $range);
         $mform->setDefault('config_number_of_keys', 5);
         $mform->setType('config_number_of_keys', PARAM_INT);
 
-        // text transform
+        // Text transform.
         $transforms = array(
             'none'      => get_string('none', 'block_ekg'),
             'upper'     => get_string('upper', 'block_ekg'),
@@ -142,23 +141,23 @@ class block_ekg_edit_form extends block_edit_form {
         $mform->addElement('select', 'config_transform', get_string('text_transform', 'block_ekg'), $transforms);
         $mform->setDefault('config_transform', 'none');
 
-        // a word about case
+        // A word about case.
         $mform->addElement('static', 'description', null, get_string('general_case', 'block_ekg'));
 
-        // array of attributes for the input boxes
+        // Array of attributes for the input boxes.
         $attributes = array('size'=>12, 'maxlength'=>10);
 
-        // prefix
+        // Prefix.
         $mform->addElement('text', 'config_prefix', get_string('prefix_desc', 'block_ekg'), $attributes);
         $mform->setDefault('config_prefix', '');
         $mform->setType('config_prefix', PARAM_RAW_TRIMMED);
 
-        // suffix
+        // Suffix.
         $mform->addElement('text', 'config_suffix', get_string('suffix_desc', 'block_ekg'), $attributes);
         $mform->setDefault('config_suffix', '');
         $mform->setType('config_suffix', PARAM_RAW_TRIMMED);
 
-        // trial picking which file to use
+        // Trial picking which file to use.
         $files_avail = array();
         $dir = $CFG->dirroot.'/blocks/ekg/wordlists';
         if ($dh = opendir($dir)) {

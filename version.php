@@ -22,11 +22,10 @@
  * @copyright  2011 onwards Paul Vaughan, paulvaughan@southdevon.ac.uk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-$plugin->version        = 2012070200;                   // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires       = 2012062500;                   // Moodle 2.3+
-$plugin->component      = 'block_ekg';                  // Full name of the plugin (used for diagnostics)
-$plugin->cron           = 0;                            // Period for cron to check this plugin (secs)
+$plugin->version        = 2012070200;                   // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires       = 2012062500;                   // Moodle 2.3+.
+$plugin->component      = 'block_ekg';                  // Full name of the plugin (used for diagnostics).
+// $plugin->cron           = 0;                            // Period for cron to check this plugin (secs).
 $plugin->maturity       = MATURITY_STABLE;
 $plugin->release        = '2.1.0';
-//$plugin->dependencies   = array ();                     // Plugin dependencies (none at this time)
+// $plugin->dependencies   = array ();                     // Plugin dependencies (none at this time).

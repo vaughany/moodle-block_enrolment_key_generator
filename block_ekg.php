@@ -22,7 +22,6 @@
  * @copyright  2011 onwards Paul Vaughan, paulvaughan@southdevon.ac.uk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 class block_ekg extends block_base {
 
     public function init() {
@@ -46,7 +45,7 @@ class block_ekg extends block_base {
             format_string($this->config->title) :
             format_string(get_string('pluginshortname', 'block_ekg'));
 
-        // checking for minimum configuration requirements
+        // Checking for minimum configuration requirements.
         if (!isset($this->config->number_of_keys) || !isset($this->config->key_type) ) {
             $this->content = new stdClass;
             $this->content->text = '<div class="keys">Configuration needed.</div>';
@@ -55,7 +54,7 @@ class block_ekg extends block_base {
     }
 
     /**
-     * transform text
+     * Transform text.
      */
     private function transform_text($text, $method) {
         switch ($method) {
@@ -75,7 +74,7 @@ class block_ekg extends block_base {
     }
 
     /**
-     * randomly select an item from a list
+     * Randomly select an item from a list.
      */
     private function getitem($list, $len) {
         // Using trim() to remove whitespace. Necessary for items from a text file, and useful for others?
@@ -83,8 +82,8 @@ class block_ekg extends block_base {
     }
 
     /**
-     * get a pseudo-random SHA-1 hash
-     * changed from MD5 not because of security, but length
+     * Get a pseudo-random SHA-1 hash.
+     * Changed from MD5 not because of security, but length.
      */
     private function getsha1() {
         return sha1(microtime());
@@ -98,18 +97,16 @@ class block_ekg extends block_base {
         global $CFG;
         include_once($CFG->dirroot . '/blocks/ekg/lib.php');
 
-        // "if the user is logged in" includes guest login too. :)
-        // this 'if' wraps the whole of this function!
+        // This "If the user is logged in" function includes guest login too. :)
+        // This 'if' wraps the whole of this function.
         if (isloggedin()) {
 
-            // need to figure out what this does...
+            // Need to figure out what this does...
             if ($this->content !== null) {
                 return $this->content;
             }
 
-            /**
-             * All wordlists.
-             */
+            // All wordlists.
             $threeletterwordlist = array (
                 'AAH', 'AAL', 'AAS', 'ABA', 'ABB', 'ABO', 'ABS', 'ABY', 'ACE', 'ACH', 'ACT', 'ADD', 'ADO', 'ADS', 'ADZ', 'AFF',
                 'AFT', 'AGA', 'AGE', 'AGO', 'AGS', 'AHA', 'AHI', 'AHS', 'AIA', 'AID', 'AIL', 'AIM', 'AIN', 'AIR', 'AIS', 'AIT',
@@ -1265,10 +1262,7 @@ class block_ekg extends block_base {
                 '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
             $charlistlen = count($charlist);
 
-            /**
-             * File Operations
-             */
-
+            // File Operations.
             $customfile = $CFG->dirroot . '/blocks/ekg/wordlists/'.$this->config->customfile.'.txt';
 
             // Check if it's a file and not a folder or a banana or a warp core breach.
@@ -1284,12 +1278,10 @@ class block_ekg extends block_base {
                     // Basic checks complete, load in the file. Could probably do with more checks, file size, line length etc.
                     $customwordlist = file($customfile);
                     $customwordlistlen = count($customwordlist);
-                } // end of file exists
-            } // end of is file
+                } // End of file exists.
+            } // End of is file.
 
-            /**
-             * String assembly
-             */
+            // String assembly.
             $result     = '';
             $interim    = '';
             $nosep      = '';
@@ -1297,10 +1289,10 @@ class block_ekg extends block_base {
             // FOR loop for number of keys.
             for ($j=1; $j <= $this->config->number_of_keys; $j++) {
 
-                // add the prefix
+                // Add the prefix.
                 $result .= $this->config->prefix;
 
-                // Initialise Count for the hybrid key type
+                // Initialise Count for the hybrid key type.
                 $count=0;
 
                 // FOR loop which iterates through the number of blocks or words required.
@@ -1323,7 +1315,7 @@ class block_ekg extends block_base {
                             }
                         break;
                         case 'rand_alpha':
-                            // same as 'rand' but 10 less to remove the numerals
+                            // Same as 'rand' but 10 less to remove the numerals.
                             for ($k=1; $k <= $this->config->chars_per_block; $k++) {
                                 $interim .= $this->getitem($charlist, $charlistlen-10);
                             }
@@ -1425,7 +1417,7 @@ class block_ekg extends block_base {
                                         $interim = $this->getitem($customwordlist, $customwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9);
-                                        // the hybrid structure assumes three cycles, but if we only want two, skip the addition of the separator
+                                        // The hybrid structure assumes three cycles, but if we only want two, skip the addition of the separator.
                                         $nosep = true;
                                     }
                                 break;
@@ -1434,7 +1426,7 @@ class block_ekg extends block_base {
                                         $interim = $this->getitem($customwordlist, $customwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9).rand(0, 9);
-                                        // the hybrid structure assumes three cycles, but if we only want two, skip the addition of the separator
+                                        // The hybrid structure assumes three cycles, but if we only want two, skip the addition of the separator.
                                         $nosep = true;
                                     }
                                 break;
@@ -1443,7 +1435,7 @@ class block_ekg extends block_base {
                                         $interim = $this->getitem($customwordlist, $customwordlistlen);
                                     } else if ($count==2) {
                                         $interim = rand(0, 9).rand(0, 9).rand(0, 9);
-                                        // the hybrid structure assumes three cycles, but if we only want two, skip the addition of the separator
+                                        // The hybrid structure assumes three cycles, but if we only want two, skip the addition of the separator.
                                         $nosep = true;
                                     }
                                 break;
@@ -1478,7 +1470,7 @@ class block_ekg extends block_base {
                         break;
                     }
 
-                    // $interim gets transformed if required.
+                    // variable $interim gets transformed if required.
                     $result .= $this->transform_text($interim, $this->config->transform);
                     $interim = '';
 
@@ -1488,7 +1480,7 @@ class block_ekg extends block_base {
                             $result .= $this->config->separator;
                         }
                     } else {
-                        // if used, reset.
+                        // If used, reset.
                         $nosep = false;
                     }
                 }
@@ -1501,12 +1493,9 @@ class block_ekg extends block_base {
                     $result .= "<br />\n";
                 }
 
-            } // END for loop for number of keys
+            } // END for loop for number of keys.
 
-            /**
-             * Sorting out the footer
-             */
-
+            // Sorting out the footer.
             $words_in_list = '';
             switch ($this->config->key_type) {
                 case 'three':
@@ -1523,8 +1512,7 @@ class block_ekg extends block_base {
                 break;
             }
 
-
-            // set up a default empty footer
+            // Set up a default empty footer.
             $footer_result = '<hr />';
             switch (get_config('ekg', 'footer')) {
                 case 'words':
@@ -1535,60 +1523,55 @@ class block_ekg extends block_base {
                 break;
                 case 'refresh':
                     if ($this->config->number_of_keys == 1) {
-                        // singular: this is an easy way of doing it.
+                        // Singular: this is an easy way of doing it.
                         $footer_result .= '<a href="#" onClick="window.location.reload()">'.
                             get_string('footer-s', 'block_ekg').'</a>'."\n";
                     } else {
-                        // plural
+                        // Plural.
                         $footer_result .= '<a href="#" onClick="window.location.reload()">'.
                             get_string('footer-p', 'block_ekg').'</a>'."\n";
                     }
                 break;
                 case 'both':
-                    /**
-                     * I really should write this bit better :(
-                     */
-                    // words
+                    // I really should write this bit better. :(
+                    // Words.
                     if ($words_in_list != 0 && $words_in_list != '') {
                         $footer_result .= get_string('pre-result', 'block_ekg').$words_in_list.
                             get_string('post-result', 'block_ekg').'<br />'."\n";
                     }
-                    // 'refresh'
+                    // Refresh.
                     if ($this->config->number_of_keys == 1) {
-                        // singular: this is an easy way of doing it.
+                        // Singular: this is an easy way of doing it.
                         $footer_result .= '<a href="#" onClick="window.location.reload()">'.
                             get_string('footer-s', 'block_ekg').'</a>'."\n";
                     } else {
-                        // plural
+                        // Plural.
                         $footer_result .= '<a href="#" onClick="window.location.reload()">'.
                             get_string('footer-p', 'block_ekg').'</a>'."\n";
                     }
                 break;
                 case 'none':
-                    // $footer_result is already empty, so do nothing.
+                    // Variable $footer_result is already empty, so do nothing.
                 break;
                 default:
                     $footer_result .= get_string('footer_error', 'block_ekg');
                 break;
             }
-            // add the name of the custom word list to the footer, if used.
+
+            // Add the name of the custom word list to the footer, if used.
             if ((get_config('ekg', 'footerwordlist')) == 'show') {
                 $footer_result .= ' <em>'.prettyfilename($this->config->customfile).'</em> '.get_string('footer_wordlist', 'block_ekg');
             }
 
-
-            /**
-             * This section sorts out the output to screen.
-             */
+            // This section sorts out the output to screen.
             $this->content = new stdClass;
             $this->content->text = '<div class="keys">'.$result.'</div>';
             $this->content->footer = $footer_result;
 
-            // Leave this in, its vital!!
             return $this->content;
 
-        } // end of if (isloggedin() && !isguestuser()) statement
+        } // End of if (isloggedin() && !isguestuser()) statement.
 
-    } // end of get_content() function
+    } // End of get_content() function.
 
 }
