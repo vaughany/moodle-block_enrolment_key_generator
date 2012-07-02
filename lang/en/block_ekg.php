@@ -17,12 +17,10 @@
 /**
  * Enrolment Key Generator block en_uk language file
  *
- * @package    block
- * @subpackage ekg
+ * @package    block_ekg
  * @copyright  2011 onwards Paul Vaughan, paulvaughan@southdevon.ac.uk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 $string['pluginname'] = 'Enrolment Key Generator';
 $string['pluginshortname'] = 'EKG';
 $string['type_of_key'] = 'Type of key to be generated:';

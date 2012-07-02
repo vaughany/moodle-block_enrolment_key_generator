@@ -17,8 +17,7 @@
 /**
  * Enrolment Key Generator global configuration
  *
- * @package    block
- * @subpackage ekg
+ * @package    block_ekg
  * @copyright  2011 onwards Paul Vaughan, paulvaughan@southdevon.ac.uk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
