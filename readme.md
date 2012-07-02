@@ -85,8 +85,8 @@ Menu one contains:
 
 Menu two relates to the custom word list you may or may not be using, and contains:
 
-* `Show the word list\'s name`: If you use a custom word list, the name will be shown.
-* `Don\'t show the word list\'s name`: The name of the custom word list will not be shown.
+* `Show the word list's name`: If you use a custom word list, the name will be shown.
+* `Don't show the word list's name`: The name of the custom word list will not be shown.
 
 Click save changes when you are done.
 
