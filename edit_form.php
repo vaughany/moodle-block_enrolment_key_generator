@@ -43,22 +43,23 @@ class block_ekg_edit_form extends block_edit_form {
 
         // type of key to be created
         $radioarray = array();
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('three', 'block_ekg'), 'three');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('four', 'block_ekg'), 'four');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('five', 'block_ekg'), 'five');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('rand', 'block_ekg'), 'rand');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('rand_alpha', 'block_ekg'), 'rand_alpha');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('rand_numeric', 'block_ekg'), 'rand_numeric');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('three', 'block_ekg'), 'three');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('four', 'block_ekg'), 'four');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('five', 'block_ekg'), 'five');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('rand', 'block_ekg'), 'rand');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('rand_alpha', 'block_ekg'), 'rand_alpha');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('rand_numeric', 'block_ekg'), 'rand_numeric');
 
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('ln', 'block_ekg'), 'ln');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('lnln', 'block_ekg'), 'lnln');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('lnlnln', 'block_ekg'), 'lnlnln');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('llnn', 'block_ekg'), 'llnn');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('lllnnn', 'block_ekg'), 'lllnnn');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('ln', 'block_ekg'), 'ln');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('lnln', 'block_ekg'), 'lnln');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('lnlnln', 'block_ekg'), 'lnlnln');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('llnn', 'block_ekg'), 'llnn');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('lllnnn', 'block_ekg'), 'lllnnn');
 
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('sha1', 'block_ekg'), 'sha1');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('custom', 'block_ekg'), 'custom');
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_key_type', '', get_string('hybrid', 'block_ekg'), 'hybrid');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('sha1', 'block_ekg'), 'sha1');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('custom', 'block_ekg'), 'custom');
+        $radioarray[] = $mform->createElement('radio', 'config_key_type', '', get_string('hybrid', 'block_ekg'), 'hybrid');
+
         $mform->addGroup($radioarray, 'config_key_type', get_string('type_of_key', 'block_ekg'), array('<br />'), false);
         $mform->setDefault('config_key_type', 'three');
         $mform->setType('config_key_type', PARAM_ALPHANUMEXT);
@@ -78,29 +79,29 @@ class block_ekg_edit_form extends block_edit_form {
 
         // hybrid key structure
         $radioarray=array();
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_three-four-five', 'block_ekg'), 'three-four-five', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_five-four-three', 'block_ekg'), 'five-four-three', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_three-number-five', 'block_ekg'), 'three-number-five', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_five-number-three', 'block_ekg'), 'five-number-three', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_three-numbernumber-five', 'block_ekg'), 'three-numbernumber-five', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_five-numbernumber-three', 'block_ekg'), 'five-numbernumber-three', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-number', 'block_ekg'), 'custom-number', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-numbernumber', 'block_ekg'), 'custom-numbernumber', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-numbernumbernumber', 'block_ekg'), 'custom-numbernumbernumber', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-number-custom', 'block_ekg'), 'custom-number-custom', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-numbernumber-custom', 'block_ekg'), 'custom-numbernumber-custom', null);
-        $radioarray[] = &MoodleQuickForm::createElement('radio', 'config_hybrid_structure', '',
+        $radioarray[] = $mform->createElement('radio', 'config_hybrid_structure', '',
             get_string('hybrid_custom-numbernumbernumber-custom', 'block_ekg'), 'custom-numbernumbernumber-custom', null);
 
         $mform->addGroup($radioarray, 'config_hybrid_structure', get_string('hybrid_options', 'block_ekg'), array('<br />'), false);
