@@ -10,7 +10,7 @@ It is probably a good idea to fully read through this readme before embarking on
 
 ## Licence
 
-Enrolment Key Generator block for Moodle 2.x, copyright (C) 2009-2012  Paul Vaughan
+Enrolment Key Generator block for Moodle 2.x, copyright &copy; 2009-2012  Paul Vaughan
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -42,7 +42,6 @@ Download the archive and extract the files, or [clone the repository from GitHub
     |       `-- block_ekg.php
     |-- lib.php
     |-- readme.md
-    |-- readme.md.bak
     |-- settings.php
     |-- styles.css
     |-- version.php
@@ -244,7 +243,7 @@ This part of the block is not particularly sophisticated, reading a whole file s
 
 The block is visible to ALL logged in users (including those logged in as 'guest'). It's not a problem as such, as keys generated are very, very unlikely to be generated ever again, however I thought I'd add it in here in case you missed it above.
 
-Should you find a bug, have an issue, feature request or new language pack, please [log an issue in the tracker](https://github.com/vaughany/moodle-courseawards/issues) or fork the repo, fix the problem and submit a pull request.
+Should you find a bug, have an issue, feature request or new language pack, please [log an issue in the tracker](https://github.com/vaughany/moodle-block_enrolment_key_generator/issues) or fork the repo, fix the problem and submit a pull request.
 
 Custom file reading is very basic, lacking checks such as empty lines, white space.
 
